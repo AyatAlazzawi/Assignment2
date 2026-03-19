@@ -2,8 +2,29 @@
 //Please keep in mind i used my assignmet 1 as a reference so a lot of the variables have the same name and 'equivilant' setup 
 
 
-import { useState } from 'react';
+//Ayat notes:
+/* */
+
+/*
+Commands used:
+npx @react-native-community/cli@latest init Assignment2
+npm install @react-navigation/native
+npm install @react-navigation/native-stack
+npm install react-native-screens react-native-safe-area-context
+
+References:
+https://reactnative.dev/
+https://reactnavigation.org/docs/getting-started
+https://reactnavigation.org/docs/native-stack-navigator
+https://reactnavigation.org/docs/use-focus-effect */
+
+
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+//import { useState } from 'react';
+//import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+const [counts, setCounts] = useState<{ [key: number]: number}>({});
 
 
 export default function HomeScreen() {
@@ -29,9 +50,20 @@ export default function HomeScreen() {
           style={styles.button}
           //onPress={() => alert('Button Pressed')}
           onPress={() => {
-            const randomNumber = Math.floor(Math.random() *9) + 1;
+            const randomNumber = Math.floor(Math.random() *9) + 1; // so basically i called math.random then floored it to remove the decimal, added +1 (borrowd from assignment 1, to make it generate from 1-9 instead of 0-9) then used toString to make it a string 
             setNumber(randomNumber.toString());
           }}
+          
+          //alternatiely i could have declared a max and a min above and done it verbatum but the logic from my previous assignment was easier by a landslide 
+          
+          // borrowed from assignment 1 logic + https://www.geeksforgeeks.org/react-native/how-to-generate-random-numbers-in-react-native/ 
+          // I adapted these lines const generateRandomNumber = () => {
+          //const min = 1; // Minimum value
+          // const max = 100; // Maximum value
+          // Generate random number in the range [min, max]
+          //const number = Math.floor(Math.random() * (max - min + 1)) + min;
+          //setRandomNumber(number); // Update state with the new random number
+       // };
         >
           <Text style={styles.buttonText}>Generate</Text>
         </TouchableOpacity>
@@ -49,46 +81,6 @@ export default function HomeScreen() {
  
 }
 
-/*const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  numberContainer: {
-    flex: 1,
-    justifyContent: 'center', // vertical center
-    alignItems: 'center',
-  },
-
-  number: {
-    fontSize: 80,
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: 'brown',
-    padding: 15,
-    borderRadius: 0,
-    //justifyContent: 'center',
-    margin: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    gap: 10,
-    width: '80%'
-  },
-});*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
