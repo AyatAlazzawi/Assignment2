@@ -6,11 +6,7 @@
 /* */
 
 /*
-Commands used:
-npx @react-native-community/cli@latest init Assignment2
-npm install @react-navigation/native
-npm install @react-navigation/native-stack
-npm install react-native-screens react-native-safe-area-context
+C
 
 References:
 https://reactnative.dev/
@@ -18,30 +14,61 @@ https://reactnavigation.org/docs/getting-started
 https://reactnavigation.org/docs/native-stack-navigator
 https://reactnavigation.org/docs/use-focus-effect */
 
-
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 //import { useState } from 'react';
 //import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-const [counts, setCounts] = useState<{ [key: number]: number}>({});
-
+//const [counts, setCounts] = useState<{ [key: number]: number}>({});
 
 export default function HomeScreen() {
-  const [number, setNumber] = useState<string>('...'); //number here is referrng to my current number that is visible, i named the function that will generate the random number setNumber and then '..' is my placeholder value for now.
+  const [number, setNumber] = useState('...'); //number here is referrng to my current number that is visible, i named the function that will generate the random number setNumber and then '..' is my placeholder value for now.
+
+  //thought process: I decided for the count to actually store the counts in an object and then display the list in an array as best practice 
+  const [counts, setCounts] = useState({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0,
+  });
+
+  /*from the react native documentation I adapted the following :
+  onClick={() => {
+        setText('');
+        setTodos([{
+          id: todos.length,
+          text: text
+        }, ...todos]); */
+
+  const updateCounts = (num) => {
+    setCounts(prev => {
+      const newCounts = { ...prev }; //copy old counts
+      newCounts[num] = newCounts[num] + 1; //increase only the number we got
+      return newCounts; //return updated object
+    });
+  };
 
   return (
     <View style={styles.container}>
       
       {/* Title */}
       <View style = {styles.header}>
-      <Text style={styles.headerTitle}>Random Number Generator</Text>
+        <Text style={styles.headerTitle}>Random Number Generator</Text>
       </View>
         
-  
       {/* Number, line 23 grabs number from the state */}
       <View style={styles.numberContainer}>
         <Text style={styles.number}>{number}</Text> 
+
+        {/* TEMP TEST just to make sure counts work */}
+        <Text style={{ color: 'white' }}>
+          Count of 1: {counts[1]}
+        </Text>
       </View>
   
       {/* Buttons */}
@@ -51,7 +78,10 @@ export default function HomeScreen() {
           //onPress={() => alert('Button Pressed')}
           onPress={() => {
             const randomNumber = Math.floor(Math.random() *9) + 1; // so basically i called math.random then floored it to remove the decimal, added +1 (borrowd from assignment 1, to make it generate from 1-9 instead of 0-9) then used toString to make it a string 
+            
             setNumber(randomNumber.toString());
+
+            updateCounts(randomNumber); //update stats when number is generated
           }}
           
           //alternatiely i could have declared a max and a min above and done it verbatum but the logic from my previous assignment was easier by a landslide 
@@ -78,7 +108,6 @@ export default function HomeScreen() {
   
     </View>
   );
- 
 }
 
 const styles = StyleSheet.create({
@@ -139,5 +168,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-
