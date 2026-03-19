@@ -1,10 +1,14 @@
 //import { Platform, StyleSheet } from 'react-native';
+//Please keep in mind i used my assignmet 1 as a reference so a lot of the variables have the same name and 'equivilant' setup 
 
 
-   
+import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+
 export default function HomeScreen() {
+  const [number, setNumber] = useState<string>('...'); //number here is referrng to my current number that is visible, i named the function that will generate the random number setNumber and then '..' is my placeholder value for now.
+
   return (
     <View style={styles.container}>
       
@@ -14,16 +18,20 @@ export default function HomeScreen() {
       </View>
         
   
-      {/* Number */}
+      {/* Number, line 23 grabs number from the state */}
       <View style={styles.numberContainer}>
-        <Text style={styles.number}>...</Text>
+        <Text style={styles.number}>{number}</Text> 
       </View>
   
       {/* Buttons */}
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => alert('Button Pressed')}
+          //onPress={() => alert('Button Pressed')}
+          onPress={() => {
+            const randomNumber = Math.floor(Math.random() *9) + 1;
+            setNumber(randomNumber.toString());
+          }}
         >
           <Text style={styles.buttonText}>Generate</Text>
         </TouchableOpacity>
